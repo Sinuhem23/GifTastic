@@ -14,41 +14,31 @@ function displayCarInfo() {
 $.ajax({
     url: queryURL,
     method: "GET"
-}).then(function(response){
+}).then(function(response) {
     console.log(queryURL);
-    console.log(response);
+    console.log(response.data[0].images.original.url);
+
+    for (var i = 0; i < response.data.length; i++) {
+        console.log(response.data[i].images.original.url);
+        var imgURL = response.data[i].images.original.url;
+
+         // // Element to hold the Image
+        var image = $("<img>").attr(
+            {src: imgURL, 
+            style: "width=400px; display:block; margin:auto; margin-top:10px"}
+        );
 
 
-// Div to hold the car
-    var carDiv = $("<div class='car'>");
-
-// Storing the rating Data
-    var rating = response.rating;
-
-// Element to display the rating
-    var DisR = $("<p>").text("Rating: " + rating);
-
-// Displaying the rating
-carDiv.append(DisR);
-
-// URL for Image
-var imgURL = response.images.fixed_height.url;
-
-// Element to hold the Image
-var image = $("<img>").attr("src", imgURL);
-
-// Appending the Image
-carDiv.append(image);
-
-
-// Putting the entire car above the previous cars
-$("#cars-view").prepend(carDiv);
+        // // Appending the Image
+        $("#cars-view").append(image);
+    };
+    
 
 
 
-});
-
+    });
 }
+
 
 
 
@@ -56,7 +46,7 @@ $("#cars-view").prepend(carDiv);
 function renderButtons() {
 
     // Deleting the cars prior to adding new cars/ avoid repeat buttons
-    $("buttons-view").empty();
+    $("#buttons-view").empty();
 
 
     // Looping through the array of cars
@@ -90,6 +80,7 @@ function renderButtons() {
     renderButtons();
 
     });
+    
     
     // Adding a click even listener to all elements with a class of "car-btn"
     $(document).on("click", ".car-btn", displayCarInfo);
