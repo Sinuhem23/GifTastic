@@ -4,35 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<!-- Linking CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Linking CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+    <!-- Google Fonts  -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
 
     <title>GifTastic</title>
   </head>
 
   <body>
     <div class="container">
-
-        
-      <!-- Rendered Buttons will get Dumped Here  -->
-
-      <div id="buttons-view"></div>
-
+      <!-- Search bar -->
       <form id="car-form">
-        <label for="car-input">I Love Cars!</label>
-        <input type="text" id="car-input">
-        <br>
+        <label class="typeCars" for="car-input"> - I Love Cars! -</label>
+        <input type="text" id="car-input" />
+        <br />
 
         <!-- Button triggers new car to be added -->
-        <input id="add-car" type="submit" value="Add More Cars!">
+        <input id="add-car" type="submit" value="Add More Cars!" />
       </form>
+
+      <!-- Rendered Buttons will get Dumped Here  -->
+      <div id="buttons-view"></div>
 
       <!-- Cars will get Dumped Here -->
       <div id="cars-view"></div>
 
-
-    <!-- Linking jQuery -->
+      <!-- Linking jQuery -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <!-- Linking our JavaScript file -->
       <script type="text/javascript" src="assets/javascript/gif.js"></script>

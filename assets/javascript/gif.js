@@ -1,10 +1,9 @@
 // arrays of cars
-var cars = ["Mustang","Tesla","Camaro","Challenger","Ferrari","Lamborghini","Mclaren","Ford GT","Porsche","Aston Martin"];
+var cars = ["Mustang","Tesla","Chevrolet Camaro","Dodge Challenger","Ferrari","Lamborghini","Mclaren","Ford GT","Porsche","Aston Martin"];
 
 
-
-// displayCarInfo function re-renders the HTML to display the proper content
-function displayCarInfo() {
+// Adding a click even listener to all elements with a class of "car-btn"
+$(document).on("click", ".car-btn" , function () {
 
     var car = $(this).attr("data-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + car + "&api_key=lVX2szWqWpq4D5Zrcujk3MkqacAtJp7F&limit=10";
@@ -17,27 +16,43 @@ $.ajax({
 }).then(function(response) {
     console.log(queryURL);
     console.log(response.data[0].images.original.url);
-
+    
+    // for loop for gathering Images
     for (var i = 0; i < response.data.length; i++) {
         console.log(response.data[i].images.original.url);
-        var imgURL = response.data[i].images.original.url;
+
+        var searchDiv = $("<div class='search-item'>");
+        // images both still and animated
+        var animatedImg = response.data[i].images.original.url;
+       
+        var still = response.data[i].images.original_still.url;
 
          // // Element to hold the Image
         var image = $("<img>").attr(
-            {src: imgURL, 
-            style: "width=400px; display:block; margin:auto; margin-top:10px"}
-        );
+            {src: still, 
+            style: "width=400px; display:block; margin:auto; margin-top:10px"});
 
+
+        // set up for calling still + animated 
+        image.attr("data-still", still);
+
+        image.attr("data-animated", animatedImg);
+
+        image.attr("data-state", "still");
+
+        image.addClass("searchImage");
+
+        searchDiv.append(image);
 
         // // Appending the Image
-        $("#cars-view").append(image);
-    };
+        searchDiv.append(image);
+
+        $("#cars-view").prepend(searchDiv);
+
+    }
     
-
-
-
     });
-}
+});
 
 
 
@@ -82,21 +97,25 @@ function renderButtons() {
     });
     
     
-    // Adding a click even listener to all elements with a class of "car-btn"
-    $(document).on("click", ".car-btn", displayCarInfo);
+  
 
     // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
 
-
-
-
-
-
-
-
-
+$(document).on("click", ".searchImage", function() {
+    //var that reads the data state
+    var state = $(this).attr("data-state");
+    //if the state equals still do this
+    if (state == "still") {
+      $(this).attr("src", $(this).data("animated"));
+      $(this).attr("data-state", "animated");
+      // if else do this
+    } else {
+      $(this).attr("src", $(this).data("still"));
+      $(this).attr("data-state", "still");
+    }
+  });
 
 
 
